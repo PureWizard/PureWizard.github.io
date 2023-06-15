@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #555555;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .code-container {
+            width: 45%;
+            margin: 10px;
+            border: 1px solid white;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PureWizard</title>
+    </head>
+    <body>
+    <div class="code-container">
+        <head>
+            <style>
+                body {
+                    background-color: #555555;
+                    color: white;
+                }
+            </style>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        <body></body>
+        <script src="bundle.js"></script>
+        </html>
+    </div>
+
+    <div class="code-container">
+        <h2>Code 2</h2>
+        <head>
+          <style>
+            #file-input {
+              display: none;
+            }
+            
+            #file-content {
+              width: 350px;
+              height: 570px;
+              border: 4px solid #111999;
+              padding: 10px;
+              overflow-y: scroll;
+            }
+            
+            .copy-button {
+              display: none;
+            }
+          </style>
+        </head>
+        <body>
+          <button onclick="selectFile()">Select File</button>
+          <div id="file-content"></div>
+          
+          <script>
+            function selectFile() {
+              var fileInput = document.createElement('input');
+              fileInput.type = 'file';
+              fileInput.accept = '.txt'; // Specify the file types allowed, e.g., .txt, .csv
+              fileInput.addEventListener('change', function(event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                  var contents = e.target.result;
+                  displayFileContents(contents);
+                };
+                
+                reader.readAsText(file);
+              });
+              
+              fileInput.click();
+            }
+            
+            function displayFileContents(contents) {
+              var fileContentDiv = document.getElementById('file-content');
+              fileContentDiv.innerHTML = '';
+              
+              var lines = contents.split('\n');
+              for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                var lineElement = document.createElement('div');
+                lineElement.textContent = line;
+                
+                var copyButton = document.createElement('button');
+                copyButton.textContent = 'Copy';
+                copyButton.addEventListener('click', function() {
+                  copyToClipboard(this.parentNode.firstChild.textContent);
+                });
+                
+                lineElement.appendChild(copyButton);
+                fileContentDiv.appendChild(lineElement);
+              }
+            }
+            
+            function copyToClipboard(text) {
+              var textarea = document.createElement('textarea');
+              textarea.value = text;
+              document.body.appendChild(textarea);
+              textarea.select();
+              document.execCommand('copy');
+              document.body.removeChild(textarea);
+            }
+          </script>
+        </body>
+        </html>
+        <pre>
+            &lt;!doctype html&gt;
+            &lt;html&gt;
+            &lt;head&gt;
+                &lt;title&gt;Code 2&lt;
+            &lt;/head&gt;
+            &lt;body&gt;
+            &lt;/body&gt;
+            &lt;/html&gt;
+        </pre>
+    </div>
+</body>
+</html>

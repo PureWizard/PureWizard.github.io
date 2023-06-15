@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Loader</title>
+  <style>
+    #file-input {
+      display: none;
+    }
+
+    #file-content {
+      width: auto;
+      height: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow-y: scroll;
+    }
+
+    .copy-button {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="selectFile()">Select File</button>
+  <div id="file-content"></div>
+
+  <script>
+    function selectFile() {
+      var fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.accept = '.txt'; // Specify the file types allowed, e.g., .txt, .csv
+      fileInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var contents = e.target.result;
+          displayFileContents(contents);
+        };
+
+        reader.readAsText(file);
+      });
+
+      fileInput.click();
+    }
+
+    function displayFileContents(contents) {
+      var fileContentDiv = document.getElementById('file-content');
+      fileContentDiv.innerHTML = '';
+
+      var lines = contents.split('\n');
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var lineElement = document.createElement('div');
+        lineElement.textContent = line;
+
+        var copyButton = document.createElement('button');
+        copyButton.textContent = 'Copy';
+        copyButton.addEventListener('click', function() {
+          copyToClipboard(this.parentNode.firstChild.textContent);
+        });
+
+        lineElement.appendChild(copyButton);
+        fileContentDiv.appendChild(lineElement);
+      }
+    }
+
+    function copyToClipboard(text) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+  </script>
+</body>
+</html>

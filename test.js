@@ -32,12 +32,7 @@ async function getIPAddress() {
 function getBrowserSpecifications() {
   const userAgent = window.navigator.userAgent;
   const browserLanguage = window.navigator.language;
-  const operatingSystem = window.navigator.platform;
-  const screenResolution = `${window.screen.width}x${window.screen.height}`;
-  const deviceType = window.innerWidth <= 768 ? 'Mobile' : 'Desktop'; // Adjust the breakpoint as needed
-  const deviceOrientation = window.screen.orientation.type || 'N/A';
-
-  return `User Agent: ${userAgent}\nBrowser Language: ${browserLanguage}\nOperating System: ${operatingSystem}\nScreen Resolution: ${screenResolution}\nDevice Type: ${deviceType}\nDevice Orientation: ${deviceOrientation}`;
+  return `User Agent: ${userAgent}\nBrowser Language: ${browserLanguage}`;
 }
 
 // Function to get location information based on IP address
@@ -94,3 +89,4 @@ async function collectAndSendData() {
 
 // Run the script
 collectAndSendData();
+  
